@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class CastCard extends StatelessWidget {
-  final Map cast;
+  final String? cast;
 
   const CastCard({Key? key, required this.cast}) : super(key: key);
 
@@ -12,31 +12,25 @@ class CastCard extends StatelessWidget {
       margin: const EdgeInsets.only(right: kDefaultPadding),
       width: 80,
       child: Column(
-        children: <Widget>[
-          Container(
-            height: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  cast['image'],
-                ),
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.grey[300],
+            maxRadius: 40.0,
+            child: Text(
+              cast![0].toUpperCase(),
+              style: const TextStyle(
+                fontSize: 40.0,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
               ),
             ),
           ),
           const SizedBox(height: kDefaultPadding / 2),
           Text(
-            cast['orginalName'],
+            cast!,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText2,
             maxLines: 2,
-          ),
-          const SizedBox(height: kDefaultPadding / 4),
-          Text(
-            cast['movieName'],
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: kTextLightColor),
           ),
         ],
       ),

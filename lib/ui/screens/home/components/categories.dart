@@ -5,12 +5,12 @@ class CategoryList extends StatefulWidget {
   const CategoryList({Key? key}) : super(key: key);
 
   @override
-  _CategoryListState createState() => _CategoryListState();
+  State<CategoryList> createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
   int selectedCategory = 0;
-  List<String> categories = ["Em cartaz", "Bilheteria", "Em Breve"];
+  List<String> categories = ["On Display", "Box Office", "Coming Soon"];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _CategoryListState extends State<CategoryList> {
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Text(
               categories[index],
               style: Theme.of(context).textTheme.headline5?.copyWith(

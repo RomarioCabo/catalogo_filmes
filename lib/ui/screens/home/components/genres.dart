@@ -8,11 +8,11 @@ class Genres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> genres = [
-      "Ação",
-      "Policial",
-      "Comédia",
+      "Action",
+      "Cop",
+      "Comedy",
       "Drama",
-      "Terror",
+      "Horror",
       "Anime"
     ];
     return Container(

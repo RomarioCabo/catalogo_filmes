@@ -1,10 +1,9 @@
 import 'package:filmcatalog/ui/screens/details/components/body.dart';
 import 'package:flutter/material.dart';
-import '../../models/movie.dart';
-
+import '../../../shared/model/movie.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Movie? movie;
+  final Movie movie;
 
   const DetailsScreen({required this.movie, Key? key}) : super(key: key);
   @override

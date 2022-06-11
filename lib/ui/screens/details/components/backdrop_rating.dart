@@ -1,42 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants.dart';
-import '../../../models/movie.dart';
+import '../../../../shared/model/movie.dart';
 
 class BackdropAndRating extends StatelessWidget {
   final Size size;
-  final Movie? movie;
+  final Movie movie;
 
   const BackdropAndRating({
-    Key? key,
     required this.size,
     required this.movie,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // 40% of our total height
       height: size.height * 0.4,
       child: Stack(
-        children: <Widget>[
+        children: [
           Container(
             height: size.height * 0.4 - 50,
             decoration: BoxDecoration(
-              borderRadius:
-                  const BorderRadius.only(bottomLeft: Radius.circular(50)),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+              ),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(movie!.backdrop),
+                image: NetworkImage(movie.poster!),
               ),
             ),
           ),
-          // Rating Box
           Positioned(
             bottom: 0,
             right: 0,
             child: Container(
-              // it will cover 90% of our total width
               width: size.width * 0.9,
               height: 100,
               decoration: BoxDecoration(
@@ -65,18 +63,22 @@ class BackdropAndRating extends StatelessWidget {
                         SvgPicture.asset("assets/icons/star_fill.svg"),
                         const SizedBox(height: kDefaultPadding / 4),
                         RichText(
+                          textAlign: TextAlign.justify,
                           text: TextSpan(
                             style: const TextStyle(color: Colors.black),
                             children: [
                               TextSpan(
-                                text: "${movie!.rating}/",
+                                text:
+                                    "${movie.ratings![0].value?.split("/")[0]}/",
                                 style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const TextSpan(text: "10\n"),
-                              const TextSpan(
-                                text: "150,212",
-                                style: TextStyle(color: kTextLightColor),
+                              TextSpan(
+                                text: movie.imdbVotes,
+                                style: const TextStyle(color: kTextLightColor),
                               ),
                             ],
                           ),
@@ -86,17 +88,18 @@ class BackdropAndRating extends StatelessWidget {
                     // Rate this
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: [
                         SvgPicture.asset("assets/icons/star.svg"),
                         const SizedBox(height: kDefaultPadding / 4),
-                        Text("Rate This",
-                            style: Theme.of(context).textTheme.bodyText2),
+                        Text(
+                          "Rate This",
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
                       ],
                     ),
-                    // Metascore
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: [
                         Container(
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
@@ -104,7 +107,7 @@ class BackdropAndRating extends StatelessWidget {
                             borderRadius: BorderRadius.circular(2),
                           ),
                           child: Text(
-                            "${movie!.metascoreRating}",
+                            movie.metaScore!,
                             style: const TextStyle(
                               fontSize: 16,
                               color: Colors.white,
@@ -118,9 +121,9 @@ class BackdropAndRating extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
-                        const Text(
-                          "62 critic reviews",
-                          style: TextStyle(color: kTextLightColor),
+                        Text(
+                          "${movie.metaScore} critic reviews",
+                          style: const TextStyle(color: kTextLightColor),
                         )
                       ],
                     )

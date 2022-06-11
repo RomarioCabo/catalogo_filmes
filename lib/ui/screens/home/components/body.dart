@@ -9,15 +9,30 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: const [
-          CategoryList(),
-          Genres(),
-          SizedBox(height: kDefaultPadding),
-          MovieCarousel(),
-        ],
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: const [
+                  CategoryList(),
+                  Genres(),
+                  SizedBox(height: kDefaultPadding),
+                  Spacer(),
+                  MovieCarousel(),
+                  Spacer(),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

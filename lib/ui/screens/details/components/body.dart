@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
-import '../../../models/movie.dart';
+import '../../../../shared/model/movie.dart';
 import 'backdrop_rating.dart';
-import 'cast_and_crew.dart';
+import 'cast.dart';
 import 'genres.dart';
 import 'title_duration_and_fav_btn.dart';
 
 class Body extends StatelessWidget {
-  final Movie? movie;
+  final Movie movie;
 
-  const Body({Key? key, this.movie}) : super(key: key);
+  const Body({Key? key, required this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // it will provide us total height and width
     Size size = MediaQuery.of(context).size;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          BackdropAndRating(size: size, movie: movie!),
+        children: [
+          BackdropAndRating(size: size, movie: movie),
           const SizedBox(height: kDefaultPadding / 2),
-          TitleDurationAndFabBtn(movie: movie!),
+          TitleDurationAndFabBtn(movie: movie),
           Genres(movie: movie),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -36,13 +36,13 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Text(
-              movie!.plot,
+              movie.plot!,
               style: const TextStyle(
                 color: Color(0xFF737599),
               ),
             ),
           ),
-          CastAndCrew(casts: movie!.cast),
+          Cast(casts: movie.actors?.split(",")),
         ],
       ),
     );

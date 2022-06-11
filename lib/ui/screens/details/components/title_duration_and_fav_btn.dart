@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
-import '../../../models/movie.dart';
+import '../../../../shared/model/movie.dart';
 
 class TitleDurationAndFabBtn extends StatelessWidget {
-  final Movie? movie;
+  final Movie movie;
 
   const TitleDurationAndFabBtn({
     Key? key,
-    this.movie,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -24,31 +24,31 @@ class TitleDurationAndFabBtn extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding),
       child: Row(
-        children: <Widget>[
+        children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: [
                 Text(
-                  movie!.title,
+                  movie.title!,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 const SizedBox(height: kDefaultPadding / 2),
                 Row(
-                  children: <Widget>[
+                  children: [
                     Text(
-                      '${movie!.year}',
+                      '${movie.year}',
                       style: const TextStyle(color: kTextLightColor),
                     ),
                     const SizedBox(width: kDefaultPadding),
-                    const Text(
-                      "PG-13",
-                      style: TextStyle(color: kTextLightColor),
+                    Text(
+                      movie.rated!,
+                      style: const TextStyle(color: kTextLightColor),
                     ),
                     const SizedBox(width: kDefaultPadding),
-                    const Text(
-                      "2h 32min",
-                      style: TextStyle(color: kTextLightColor),
+                    Text(
+                      '${movie.runtime}',
+                      style: const TextStyle(color: kTextLightColor),
                     ),
                   ],
                 )

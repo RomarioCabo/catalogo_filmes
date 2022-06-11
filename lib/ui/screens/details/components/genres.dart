@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../components/genre_card.dart';
 import '../../../constants.dart';
-import '../../../models/movie.dart';
+import '../../../../shared/model/movie.dart';
 
 class Genres extends StatelessWidget {
-  final Movie? movie;
+  final Movie movie;
 
   const Genres({
     required this.movie,
@@ -13,18 +13,24 @@ class Genres extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> genres = _getGenres(movie.genre!);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       child: SizedBox(
         height: 36,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: movie?.genra.length,
+          itemCount: genres.length,
           itemBuilder: (context, index) => GenreCard(
-            genre: movie?.genra[index],
+            genre: genres[index],
           ),
         ),
       ),
     );
+  }
+
+  List<String> _getGenres(String genre) {
+    return genre.split(",");
   }
 }

@@ -1,57 +1,89 @@
+import 'package:filmcatalog/shared/repositories/api/helpers/requeststate.dart';
+import 'package:filmcatalog/ui/screens/home/components/movie_carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'dart:math' as math;
 import '../../../constants.dart';
-import '../../../models/movie.dart';
 import 'movie_card.dart';
+import 'movie_carousel_loader.dart';
 
 class MovieCarousel extends StatefulWidget {
   const MovieCarousel({Key? key}) : super(key: key);
 
   @override
-  _MovieCarouselState createState() => _MovieCarouselState();
+  State<MovieCarousel> createState() => _MovieCarouselState();
 }
 
-class _MovieCarouselState extends State<MovieCarousel> {
+class _MovieCarouselState extends State<MovieCarousel>
+    with TickerProviderStateMixin {
+  late MovieCarouselController _carouselController;
+
+  /// Reactions
+  final List<ReactionDisposer> _disposers = [];
+
   late PageController _pageController;
   int initialPage = 1;
 
   @override
   void initState() {
     super.initState();
+
     _pageController = PageController(
       viewportFraction: 0.8,
       initialPage: initialPage,
+    );
+
+    _carouselController = MovieCarouselController();
+    _carouselController.getMovies();
+
+    _disposers.add(
+      reaction((_) => _carouselController.state, (_) => ''),
     );
   }
 
   @override
   void dispose() {
+    for (var disposer in _disposers) {
+      disposer();
+    }
+
     super.dispose();
     _pageController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
-      child: AspectRatio(
-        aspectRatio: 0.85,
-        child: PageView.builder(
-          onPageChanged: (value) {
-            setState(() {
-              initialPage = value;
-            });
-          },
-          controller: _pageController,
-          physics: const ClampingScrollPhysics(),
-          itemCount: movies.length,
-          itemBuilder: (context, index) => buildMovieSlider(index),
-        ),
-      ),
+    return Observer(
+      builder: (_) {
+        if (_carouselController.state is Loading) {
+          return MovieCarouselLoader(
+            vsync: this,
+          );
+        } else {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
+            child: AspectRatio(
+              aspectRatio: 0.85,
+              child: PageView.builder(
+                onPageChanged: (value) {
+                  setState(() {
+                    initialPage = value;
+                  });
+                },
+                controller: _pageController,
+                physics: const ClampingScrollPhysics(),
+                itemCount: _carouselController.movies.length,
+                itemBuilder: (context, index) => _buildMovieSlider(index),
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
-  Widget buildMovieSlider(int index) => AnimatedBuilder(
+  Widget _buildMovieSlider(int index) => AnimatedBuilder(
         animation: _pageController,
         builder: (context, child) {
           double value = 0;
@@ -64,7 +96,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
             opacity: initialPage == index ? 1 : 0.4,
             child: Transform.rotate(
               angle: math.pi * value,
-              child: MovieCard(movie: movies[index]),
+              child: MovieCard(movie: _carouselController.movies[index]),
             ),
           );
         },

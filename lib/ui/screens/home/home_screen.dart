@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         icon: SvgPicture.asset("assets/icons/menu.svg"),
         onPressed: () {},
       ),
-      actions: <Widget>[
+      actions: [
         IconButton(
           padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           icon: SvgPicture.asset("assets/icons/search.svg"),
