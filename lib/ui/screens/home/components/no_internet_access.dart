@@ -23,7 +23,6 @@ class _NoInternetAccessPageState extends State<NoInternetAccessPage> {
     super.initState();
 
     _carouselController = GetIt.I<MovieCarouselController>();
-    _carouselController.getMovies();
 
     _disposers.add(
       reaction((_) => _carouselController.state, (_) => ''),
