@@ -10,6 +10,8 @@ class Completed extends RequestState {}
 
 class CompletedMore extends RequestState {}
 
+class NoInternetAccess extends RequestState {}
+
 class Error extends RequestState {
   String? error;
 

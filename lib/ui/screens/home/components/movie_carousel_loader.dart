@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../constants.dart';
+
 class MovieCarouselLoader extends StatefulWidget {
   final TickerProvider vsync;
 
@@ -14,7 +16,7 @@ class _MovieCarouselLoaderState extends State<MovieCarouselLoader> {
   @override
   Widget build(BuildContext context) {
     return SpinKitCircle(
-      color: Theme.of(context).primaryColor,
+      color: kSecondaryColor,
       size: 50.0,
       controller: AnimationController(
         vsync: widget.vsync,

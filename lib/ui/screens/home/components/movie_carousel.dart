@@ -2,11 +2,13 @@ import 'package:filmcatalog/shared/repositories/api/helpers/requeststate.dart';
 import 'package:filmcatalog/ui/screens/home/components/movie_carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'dart:math' as math;
 import '../../../constants.dart';
 import 'movie_card.dart';
 import 'movie_carousel_loader.dart';
+import 'no_internet_access.dart';
 
 class MovieCarousel extends StatefulWidget {
   const MovieCarousel({Key? key}) : super(key: key);
@@ -34,7 +36,7 @@ class _MovieCarouselState extends State<MovieCarousel>
       initialPage: initialPage,
     );
 
-    _carouselController = MovieCarouselController();
+    _carouselController = GetIt.I<MovieCarouselController>();
     _carouselController.getMovies();
 
     _disposers.add(
@@ -60,7 +62,9 @@ class _MovieCarouselState extends State<MovieCarousel>
           return MovieCarouselLoader(
             vsync: this,
           );
-        } else {
+        } else if (_carouselController.state is NoInternetAccess) {
+          return const NoInternetAccessPage();
+        } else if (_carouselController.state is Completed) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
             child: AspectRatio(
@@ -78,6 +82,8 @@ class _MovieCarouselState extends State<MovieCarousel>
               ),
             ),
           );
+        } else {
+          return Container();
         }
       },
     );

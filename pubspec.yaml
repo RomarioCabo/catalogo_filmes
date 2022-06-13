@@ -44,8 +44,9 @@ dependencies:
   analyzer: ^4.1.0              #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
   http: ^0.13.4                 #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
   intl: ^0.17.0                 #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
-  shimmer: ^2.0.0               #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
   flutter_spinkit: ^5.1.0       #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
+  connectivity_plus: ^2.3.3     #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
+  get_it: ^7.2.0                #COMPATIBILITY | FLUTTER | ANDROID | IOS | LINUX | MACOS | WEB | WINDOWS
 
 dev_dependencies:
   mobx_codegen: ^2.0.7

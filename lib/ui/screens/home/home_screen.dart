@@ -10,12 +10,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(),
+      appBar: _buildAppBar(),
       body: const Body(),
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
